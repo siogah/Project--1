@@ -76,3 +76,4 @@ resource "aws_security_group" "allow_ports" {
     Name = "allow_ports"
   }
 }
+
