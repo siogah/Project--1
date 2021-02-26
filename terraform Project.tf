@@ -3,7 +3,7 @@ provider "aws" {
     secret_key = "uqvTXPnIIsqikg+zfF0Rv3Mqu4ykuUuhOGovd1aC"
     region  = "us-east-1"
 }
-#This is a single-line comment.
+#Create an EC2 instance .
 resource "aws_instance" "myserver" {
   ami           = " ami-03d315ad33b9d49c4"
   instance_type = "t2.meduim"
@@ -13,7 +13,7 @@ resource "aws_instance" "myserver" {
   tags = {
       Name = "27global"
   }
-
+#Provide Public Key.
 }
 resource "aws_key_pair" "keypair" {
   key_name   = "mykey"
@@ -25,6 +25,7 @@ resource "aws_key_pair" "keypair" {
   34060201081857920034686517355716995764136709642809337066122628067038076542412899073218893073390545948692349221031 rsa-key-20210225"
 }
 
+#Assign Elastic IP to the instance.
 resource "aws_eip" "myeip" {
   instance = aws_instance.myserver.id
   vpc      = true
@@ -36,6 +37,7 @@ resource "aws_default_vpc"  "default" {
     }
 }
 
+#Create Secuirty Group that allows ports 22,80.443
 resource "aws_security_group" "allow_ports" {
   name        = "allow_ports"
   description = "Allow  inbound traffic"
@@ -77,3 +79,14 @@ resource "aws_security_group" "allow_ports" {
   }
 }
 
+#Install PostGreSQLon the AWS instance
+
+provider "postgresql" {
+  scheme   = "awspostgres"
+  host     = "test-instance.cvvrsv6scpgd.us-east-1.rds.amazonaws.com"
+  username = "postgres"
+  port     = 22
+  password = "test1234"
+
+  superuser = false
+}
