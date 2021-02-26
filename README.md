@@ -4,6 +4,7 @@ provider "aws" {
     secret_key = "uqvTXPnIIsqikg+zfF0Rv3Mqu4ykuUuhOGovd1aC"
     region  = "us-east-1"
 }
+
 #This is a single-line comment.
 resource "aws_instance" "myserver" {
   ami           = " ami-03d315ad33b9d49c4"
